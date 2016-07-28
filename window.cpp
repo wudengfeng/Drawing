@@ -4,8 +4,9 @@
 #include "window.h"
 
 
-Window::Window(QWidget *parent, bool fs)
+Window::Window(QString filename, QWidget *parent, bool fs)
     : QOpenGLWidget(parent)
+    , backgroundImage(filename)
     , fullscreen(fs)
     , scribbling(false)
     , rightPress(false)
@@ -223,7 +224,7 @@ void Window::setupUI()
 void Window::loadGLTextures()
 {
     QImage *image = new QImage(800, 600, QImage::Format_RGB32);
-    image->load(":/resources/Tulips.jpg");
+    image->load(backgroundImage);
     tex = QGLWidget::convertToGLFormat(*image);
     glGenTextures(1, &texture[0]);
     glBindTexture(GL_TEXTURE_2D, texture[0]);

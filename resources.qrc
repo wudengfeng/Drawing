@@ -3,5 +3,12 @@
         <file>resources/cursor.png</file>
         <file>resources/Tulips.jpg</file>
         <file>resources/color.jpg</file>
+        <file>resources/Chrysanthemum.jpg</file>
+        <file>resources/Desert.jpg</file>
+        <file>resources/Hydrangeas.jpg</file>
+        <file>resources/Jellyfish.jpg</file>
+        <file>resources/Koala.jpg</file>
+        <file>resources/Lighthouse.jpg</file>
+        <file>resources/Penguins.jpg</file>
     </qresource>
 </RCC>

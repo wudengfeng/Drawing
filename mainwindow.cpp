@@ -5,9 +5,14 @@ MainWindow::MainWindow(QWidget *parent)
     : QStackedWidget(parent)
     , index(0)
 {
+    QStringList list;
+    list << ":/resources/Chrysanthemum.jpg" << ":/resources/Desert.jpg"
+         << ":/resources/Hydrangeas.jpg" << ":/resources/Jellyfish.jpg"
+         << ":/resources/Koala.jpg" << ":/resources/Lighthouse.jpg"
+         << ":/resources/Penguins.jpg" << ":/resources/Tulips.jpg";
 
-    for (int i = 0; i < 10; i++) {
-        window[i] = new Window(this);
+    for (int i = 0; i < 8; i++) {
+        window[i] = new Window(list.at(i), this, false);
         this->addWidget(window[i]);
     }
     setCurrentIndex(0);
@@ -20,12 +25,12 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
     switch (event->key()) {
         case Qt::Key_PageUp:
             if ((--index) < 0) {
-                index = 9;
+                index = 7;
             }
             this->setCurrentIndex(index);
             break;
         case Qt::Key_PageDown:
-            (++index) %= 10;
+            (++index) %= 8;
             this->setCurrentIndex(index);
             break;
     }

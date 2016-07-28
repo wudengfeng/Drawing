@@ -33,7 +33,7 @@ class Window : public QOpenGLWidget, protected QOpenGLFunctions
 {
     Q_OBJECT
 public:
-    explicit Window(QWidget *parent = 0, bool fs = false);
+    explicit Window(QString filename, QWidget *parent = 0, bool fs = false);
 
 protected:
     void initializeGL() Q_DECL_OVERRIDE;
@@ -69,6 +69,7 @@ private:
     QVector<int> penWidths;
     QVector<QColor> penColor;
 
+    QString backgroundImage;
     QImage tex;
 
     QPointF lastPoint;

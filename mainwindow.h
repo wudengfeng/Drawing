@@ -17,7 +17,7 @@ public:
 protected:
     void keyPressEvent(QKeyEvent *) Q_DECL_OVERRIDE;
 private:
-    Window *window[10];
+    Window *window[8];
     int index;
 };
 
