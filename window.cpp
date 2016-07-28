@@ -249,23 +249,6 @@ void Window::setColor()
 
 void Window::grabWindow()
 {
-    int width = 800;
-    int height = 600;
-    int nAlighWidth = (width * 24 + 31) / 32;
-
-    unsigned char* pdata = new unsigned char[nAlighWidth * height * 4];
-    memset(pdata, 0, nAlighWidth * height * 4);
-
-    glReadPixels(0, 0, width, height, GL_RGB, GL_UNSIGNED_BYTE, pdata);
-
-    QPixmap picture(width, height);
-    QPainter painter(&picture);
-    for (int i = 0; i < height; i++) {
-        for (int j = 0; j < width; j++) {
-            int idx = ((height - 1 - i) * width + j) * 3;
-            painter.setPen(QPen(QColor(pdata[idx], pdata[idx + 1], pdata[idx + 2])));
-            painter.drawPoint(j, i);
-        }
-    }
+    QImage picture = grabFramebuffer();
     picture.save("D:\\abc.png");
 }
