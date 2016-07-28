@@ -1,4 +1,5 @@
-QT += widgets opengl
+QT += widgets
+QT += opengl
 
 LIBS += -lwinmm \
         -lopengl32 \
@@ -6,11 +7,15 @@ LIBS += -lwinmm \
         -lglut32 \
         -lgdi32
 
+
+
 SOURCES += main.cpp \
-    window.cpp
+    window.cpp \
+    mainwindow.cpp
 
 HEADERS += \
-    window.h
+    window.h \
+    mainwindow.h
 
 RESOURCES += \
     resources.qrc

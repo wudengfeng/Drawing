@@ -102,6 +102,9 @@ void Window::keyPressEvent(QKeyEvent *event)
     case Qt::Key_Escape:
         close();
         break;
+    default:
+        event->ignore();
+        break;
     }
 }
 
@@ -202,7 +205,7 @@ void Window::setupUI()
     penWidthLabel = new QLabel(tr("pen width : "), this);
     penWidthLabel->setGeometry(QRect(10, 10, 70, 20));
 
-    penWidthSpinBox = new QSpinBox(this);
+    penWidthSpinBox = new MySpinBox(this);
     penWidthSpinBox->setRange(1, 10);
     penWidthSpinBox->setValue(5);
     penWidthSpinBox->setGeometry(QRect(80, 10, 35, 20));

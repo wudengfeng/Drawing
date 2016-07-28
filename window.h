@@ -7,13 +7,27 @@
 #include <QVector>
 #include <QImage>
 #include <QColor>
+#include <QSpinBox>
+#include <QKeyEvent>
 
 QT_BEGIN_NAMESPACE
 class QPushButton;
 class QLabel;
-class QSpinBox;
 class QColorDialog;
 QT_END_NAMESPACE
+
+class MySpinBox : public QSpinBox
+{
+public:
+    MySpinBox(QWidget *parent = 0) : QSpinBox(parent){}
+protected:
+    void keyPressEvent(QKeyEvent *event) Q_DECL_OVERRIDE
+    {
+        if (event->key() == Qt::Key_PageUp || event->key() == Qt::Key_PageDown) {
+            event->ignore();
+        }
+    }
+};
 
 class Window : public QOpenGLWidget, protected QOpenGLFunctions
 {
@@ -39,6 +53,7 @@ private:
 
     void loadGLTextures();
     void drawLine();
+    void drawClock();
     void drawBackGround();
     QPointF translateGLPoint(QPointF);
 
@@ -70,7 +85,7 @@ private:
     int rightChangedColor;
 
     QLabel *penWidthLabel;
-    QSpinBox *penWidthSpinBox;
+    MySpinBox *penWidthSpinBox;
     QPushButton *penColorButton;
 };
 
