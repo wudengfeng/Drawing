@@ -23,7 +23,11 @@ public:
 protected:
     void keyPressEvent(QKeyEvent *event) Q_DECL_OVERRIDE
     {
-        if (event->key() == Qt::Key_PageUp || event->key() == Qt::Key_PageDown) {
+        if (event->key() == Qt::Key_Down) {
+            setValue(value() - 1);
+        } else if(event->key() == Qt::Key_Up) {
+            setValue(value() + 1);
+        } else {
             event->ignore();
         }
     }
@@ -55,6 +59,9 @@ private:
     void drawLine();
     void drawClock();
     void drawBackGround();
+    void clearScene();
+    void undoStep();
+    void redoStep();
     QPointF translateGLPoint(QPointF);
 
 private slots:
@@ -68,6 +75,10 @@ private:
     QVector<QVector<QPointF>> allLines;
     QVector<int> penWidths;
     QVector<QColor> penColor;
+
+    QVector<QVector<QPointF>> allLinesTemp;
+    QVector<int> penWidthsTemp;
+    QVector<QColor> penColorTemp;
 
     QString backgroundImage;
     QImage tex;

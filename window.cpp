@@ -79,6 +79,42 @@ void Window::drawBackGround()
     glDisable(GL_TEXTURE_2D);
 }
 
+void Window::clearScene()
+{
+    QMessageBox::StandardButton msg
+            = QMessageBox::question(NULL, tr("Asked"), tr("Sure clear the screen ?")
+                                    , QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
+    if (msg == QMessageBox::Yes) {
+        QVector<QVector<QPointF>>().swap(allLines);
+    }
+}
+
+void Window::undoStep()
+{//Ctrl + Y
+    if (allLines.size() > 0 && penWidths.size() > 0 && penColor.size() > 0) {
+        allLinesTemp.push_back(allLines.at(allLines.size() - 1));
+        penWidthsTemp.push_back(penWidths.at(penWidths.size() - 1));
+        penColorTemp.push_back(penColor.at(penColor.size() - 1));
+
+        allLines.pop_back();
+        penWidths.pop_back();
+        penColor.pop_back();
+    }
+}
+
+void Window::redoStep()
+{//Ctrl + Z
+    if (allLinesTemp.size() > 0 && penWidthsTemp.size() > 0 && penColorTemp.size() > 0) {
+        allLines.push_back(allLinesTemp.at(allLinesTemp.size() - 1));
+        penWidths.push_back(penWidthsTemp.at(penWidthsTemp.size() - 1));
+        penColor.push_back(penColorTemp.at(penColorTemp.size() - 1));
+
+        allLinesTemp.pop_back();
+        penWidthsTemp.pop_back();
+        penColorTemp.pop_back();
+    }
+}
+
 void Window::resizeGL(int width, int height)
 {
     if (height == 0) {
@@ -102,6 +138,19 @@ void Window::keyPressEvent(QKeyEvent *event)
         break;
     case Qt::Key_Escape:
         close();
+        break;
+    case Qt::Key_Delete:
+        clearScene();
+        break;
+    case Qt::Key_Y:
+        if (event->modifiers() == Qt::ControlModifier) {
+            undoStep();
+        }
+        break;
+    case Qt::Key_Z:
+        if (event->modifiers() == Qt::ControlModifier) {
+            redoStep();
+        }
         break;
     default:
         event->ignore();
